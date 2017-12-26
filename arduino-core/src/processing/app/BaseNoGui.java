@@ -90,6 +90,19 @@ public class BaseNoGui {
         e1.printStackTrace();
       }
     }
+    if (VERSION_NAME.endsWith("beta")) {
+      File versionFile = new File(getContentFile("lib"), "version.txt");
+      if (versionFile.exists() && versionFile.canRead()) {
+        try {
+          String s = FileUtils.readFileToString(versionFile).trim();
+          String[] parts = s.split("[\\.-]");
+          if (parts.length > 2) {
+            versionNameLong += parts[parts.length - 1];
+          }
+        } catch (IOException e) {
+        }
+      }
+    }
 
     VERSION_NAME_LONG = versionNameLong;
   }
